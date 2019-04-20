@@ -1,0 +1,16 @@
+{% if all_products %}
+	<h3>here are all the products</h3>
+	<ul>
+		{% for product in all_products %}
+		<li><a href= "{% url 'detail' product.id%}">{{ product.title }}</a></li>
+		{% endfor %}
+	</ul>
+	<p>
+		<h2>
+			Number of items in cart : {{ n }}
+		</h2>
+<h2></h2>
+	</p>
+{% else %}
+	<h3>You Don't have any albums</h3>	
+{% endif %}	
