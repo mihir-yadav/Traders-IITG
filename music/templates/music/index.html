@@ -1,16 +1,31 @@
 {% if all_products %}
-	<h3>here are all the products</h3>
+	<h2>here are all the products</h2>
 	<ul>
 		{% for product in all_products %}
 		<li><a href= "{% url 'detail' product.id%}">{{ product.title }}</a></li>
+			 <!- url 'detail' means the url with name 'detail' of url patterns in urls.py gets called
+			# which further calls the detail function in views.py with parameter product.title as product_id ->
 		{% endfor %}
 	</ul>
 	<p>
 		<h2>
 			Number of items in cart : {{ n }}
 		</h2>
-<h2></h2>
+
+	<h7>
+		{% for item in items %}
+		<p>
+		 	{{item.product.title }}
+
+		<form method = "POST" name = "remove" action  ="{% url 'remove' item.product.id %}">
+			{% csrf_token %}
+		<input type  = "submit" value = "remove from cart" />
+		</form>
+		</p>
+		{% endfor %}
+	</h7>
 	</p>
+
 {% else %}
 	<h3>You Don't have any albums</h3>	
 {% endif %}	
