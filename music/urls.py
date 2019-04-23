@@ -5,6 +5,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+    # url(r'^',views.register, name='register'),
     url(r'^$',views.index, name='index'),
     url(r'^(?P<product_id>[0-9]+)/$',views.detail,name= 'detail'),
     url(r'^(?P<product_id>[0-9]+)/added$',views.addInCart,name='addInCart'),

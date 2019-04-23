@@ -9,7 +9,8 @@ CATEGORIES = (
 )
 
 class Cart(models.Model):
-	user = models.OneToOneField(	# a user can map to only one cart
+	user = models.OneToOneField(	
+	# a user can map to only one cart
 		User,
 		on_delete=models.CASCADE,
 		default=None
@@ -31,7 +32,8 @@ class Product(models.Model):
 		return self.title
 
 class Item(models.Model):
-	cart = models.ForeignKey(Cart,on_delete=models.CASCADE)	# a cart can map to many items
+	cart = models.ForeignKey(Cart,on_delete=models.CASCADE)	
+	# a cart can map to many items
 	product = models.ForeignKey(Product,on_delete=models.CASCADE)
 	quantity = models.IntegerField()
 	created_on = models.DateTimeField(auto_now_add=True)

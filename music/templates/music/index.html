@@ -3,26 +3,44 @@
 	<ul>
 		{% for product in all_products %}
 		<li><a href= "{% url 'detail' product.id%}">{{ product.title }}</a></li>
-			 <!- url 'detail' means the url with name 'detail' of url patterns in urls.py gets called
-			# which further calls the detail function in views.py with parameter product.title as product_id ->
+			 <!-- !- url 'detail' means the url with name 'detail' of url patterns in urls.py gets called
+			# which further calls the detail function in views.py with pa -->
+			<!-- rameter product.title as product_id  -->
 		{% endfor %}
 	</ul>
 	<p>
-		<h2>
+	<!-- 	<h2>
 			Number of items in cart : {{ n }}
-		</h2>
+		</h2> -->
 
-	<h7>
+	<h7>	<h3 > MY CART </h3>
+			<table border="1" , cellpadding="10">
+			<tr>
+			<th>product</th>    <th>quantity</th> <th>Adjust</th>
+		 	</tr>
 		{% for item in items %}
 		<p>
-		 	{{item.product.title }}
-
-		<form method = "POST" name = "remove" action  ="{% url 'remove' item.product.id %}">
+		 	
+		
+			<tr>	
+		 	<th>{{item.product.title }}</th>
+			<th>{{item.quantity}}</th>
+		 	<th>
+			<form method = "POST" name = "increase qty" action  ="{% url 'addInCart' item.product.id %}">
 			{% csrf_token %}
-		<input type  = "submit" value = "remove from cart" />
-		</form>
+			<input type  = "submit" value = "Increase" />
+			</form>
+		 	 <form method = "POST" name = "remove" action  ="{% url 'remove' item.product.id %}">
+			{% csrf_token %}
+			<input type  = "submit" value = "Decrease" />
+			</form></th>
+			<!-- </th> -->
+			</tr>
+		
 		</p>
+
 		{% endfor %}
+	</table>
 	</h7>
 	</p>
 

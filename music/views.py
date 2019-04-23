@@ -10,11 +10,17 @@ from django.contrib.auth.models import User
 # Create your views here.
 def index(request):
 	all_products = Product.objects.all()
-	cart = Cart.objects.get(user=request.user)#cart of the current user
+	try :
+		cart = Cart.objects.get(user=request.user)
+	except:
+		cart = None	
+	# cart = Cart.objects.get(user=request.user)
+	# cart of the current user
 	# template = loader.get_template('music/index.html')
 	context ={'all_products' : all_products,
 			  'n': Item.objects.filter(cart=cart).count(),
-			  'items': Item.objects.filter(cart = cart) # products in the cart of the current user
+			  'items': Item.objects.filter(cart = cart) 
+			  # products in the cart of the current user
 			  }
 	# return HttpResponse(template.render(context, request));
 	return render (request , 'music/index.html',context)
@@ -25,8 +31,14 @@ def detail(request,product_id):
 
 def addInCart(request,product_id):
 	if request.method == 'POST' and request.user.is_authenticated:
-		cart = Cart.objects.get(user=request.user)
-		product = Product.objects.get(pk = product_id)
+		try : 
+			cart = Cart.objects.get(user=request.user)
+		except:
+			cart = None	
+		try:
+			product = Product.objects.get(pk = product_id)
+		except :
+			product = None
 
 		try:
 			item = Item.objects.get(cart = cart, product = product)
